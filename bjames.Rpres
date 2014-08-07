@@ -1,0 +1,37 @@
+Bill James' Pythagorean Win Predictor
+========================================================
+author: samacitta
+date: `r date()`
+
+What It Is
+========================================================
+
+Bill James is a Sabermetrician who developed a simple formula that can be used to predict the percentage of games a Major League Baseball team will win in a given season based solely on the runs scored and the runs allowed by a team in that season.
+
+If you are curious about how your team's new ace pitcher or new home run hitting slugger might impact the team's win/loss record next season, this simple formula can help you answer that question.
+
+The Formula
+========================================================
+
+The Win Predictor formula is very simple and is described as follows:
+
+![](./www/pythag3.png)
+
+Legend has it that Bill James named this formula his "Pythagorean Theorem" because the predictor values are squared and he thought it was a catchy name, not because it is actually the famous Pythagorean Theorem for right triangles. 
+
+Accuracy of the Formula
+========================================================
+
+The accuracy of this simple little formula when compared to over 100 years of historical data for Major League Baseball team winning percentages is astounding.  Consider the following graph where each data point represents the winning percentage for a MLB team for a given year for each year since 1901.
+
+Comparison of Actual and Predicted Winning Percentages
+========================================================
+```{r, echo = FALSE, fig.height=5, fig.width=8}
+setwd("~/Coursera/dataprods/project2")
+win_estimators <- read.csv('win_estimators.csv')
+fit = lm(WPct~BJames_Pythag_WPct, data=win_estimators)
+with(win_estimators, plot(BJames_Pythag_WPct, WPct, main="Bill James' WPct vs. Actual WPct: 1901-2013",
+                          xlab="Bill James' Pythagorean Win %", ylab="Actual Win %", col="blue"))
+```
+
+The $R^2$ value for a regression model using these two variables is **.9014**!  Amazing!!!
